@@ -78,8 +78,6 @@ async function scrapeJobDescriptions(listings, page) {
       minute
     )
 
-    console.log(publishedDate)
-
     const officeInfoHtml = $('.iulaan-info .office-info').html().trim()
     const attachments = $(
       '#additional-info > div:nth-child(1) > div:nth-child(6) > ul'

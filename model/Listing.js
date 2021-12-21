@@ -5,7 +5,7 @@ const listingsSchema = new mongoose.Schema({
   title: String,
   info: String,
   url: String,
-  publishedTime: String,
+  publishedDate: Date,
   attachments: String,
   officeInfoHtml: String,
   bodyHtml: String,
