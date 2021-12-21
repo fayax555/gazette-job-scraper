@@ -25,3 +25,18 @@ export const getLastPageNum = async (page) => {
 }
 
 export const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
+export const dvMonthToNum = {
+  ޖަނަވަރީ: 1,
+  ފެބުރުވަރީ: 2,
+  މާރިޗު: 3,
+  އޭޕްރިލް: 4,
+  މޭ: 5,
+  ޖޫން: 6,
+  ޖުލައި: 7,
+  އޮގަސްޓް: 8,
+  ސެޕްޓެންބަރު: 9,
+  އޮކްޓޫބަރު: 10,
+  ނޮވެންބަރު: 11,
+  ޑިސެންބަރު: 12,
+}

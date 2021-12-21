@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 import playwright from 'playwright'
 import cheerio from 'cheerio'
-import { getLastPageNum, connectToMongoDb } from './utils.js'
+import { getLastPageNum, connectToMongoDb, dvMonthToNum } from './utils.js'
 import Listing from './model/Listing.js'
 import mongoose from 'mongoose'
 
@@ -59,10 +59,27 @@ async function scrapeJobDescriptions(listings, page) {
     )
       .html()
       .trim()
-    const publishedTime = $('#additional-info > div > div:nth-child(3)')
-      .text()
-      .split(': ')[1]
-      .trim()
+
+    const additionalInfo = (number) =>
+      $(`#additional-info > div > div:nth-child(${number})`)
+        .text()
+        .split(': ')[1]
+        .trim()
+
+    const number = additionalInfo(1)
+    const [day, month, year] = additionalInfo(2).split(' ')
+    const [hour, minute] = additionalInfo(3).split(':')
+
+    const publishedDate = new Date(
+      year,
+      dvMonthToNum[month] - 1,
+      day,
+      hour,
+      minute
+    )
+
+    console.log(publishedDate)
+
     const officeInfoHtml = $('.iulaan-info .office-info').html().trim()
     const attachments = $(
       '#additional-info > div:nth-child(1) > div:nth-child(6) > ul'
@@ -72,10 +89,11 @@ async function scrapeJobDescriptions(listings, page) {
 
     updatedListingsArr.push({
       ...listing,
-      publishedTime,
       attachments,
       officeInfoHtml,
       bodyHtml,
+      number,
+      publishedDate,
     })
   }
 
