@@ -8,6 +8,7 @@ const listingsSchema = new mongoose.Schema({
   publishedDate: Date,
   attachments: String,
   officeInfoHtml: String,
+  retracted: String,
   bodyHtml: String,
 })
 
